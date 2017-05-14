@@ -20,7 +20,7 @@ dT = diff(gyro(:,4));
 theta = ((gyro(1:end-1,1:3) + gyro(2:end,1:3)) / 2) .* dT(:,[1 1 1]);
 theta = [0 0 0; cumsum(theta, 1)];
 
-c = 520;
+c = 0;
 t0 = 0;
 ts = 0;
 
