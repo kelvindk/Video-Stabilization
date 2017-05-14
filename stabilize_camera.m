@@ -15,7 +15,7 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 clear all;
 
-video_file = '4';
+video_file = '9';
 
 [gyro frame_time] = import_video_data(video_file);
 run ./vlfeat-0.9.20/toolbox/vl_setup.m
@@ -34,7 +34,6 @@ clear meshwarpmex
 % td = 0.001181;
 % ts = -0.002740;f
 
-% 4
 fl = 715.032453;
 td = -0.009055;
 ts = 0.004764;
