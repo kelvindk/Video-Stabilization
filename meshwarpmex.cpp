@@ -15,7 +15,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // complie on osx with:
-// mex -I"/Developer/SDKs/MacOSX10.6.sdk/usr/X11/include/" -I"/Users/alex/Source/boost_1_42_0/" -L"/Developer/SDKs/MacOSX10.6.sdk/usr/X11/lib/" -lgl -lglut -lglu meshwarpmex.cpp
+// mex -I"/Developer/SDKs/MacOSX10.6.sdk/usr/X11/include/" -I"/Users/kelvindk/Documents/Github/Video-Stabilization/boost_1_42_0" -L"/Developer/SDKs/MacOSX10.6.sdk/usr/X11/lib/" -lgl -lglut -lglu meshwarpmex.cpp
 
 // zhopy syki blyadi ...
 // PK Modficiation:
@@ -25,7 +25,7 @@
 // s  -L/usr/lib/ -lGL -lglut -lGLU  meshwarpmex.cpp
 
 // mex meshwarpmex.cpp -I/Users/kelvindk/Desktop/boost_1_42_0
-// mex meshwarpmex.cpp -I/Users/kelvindk/Desktop/boost_1_42_0 -I/opt/X11/include/ -L/opt/X11/lib/ -lgl -lglut -lglu
+// mex meshwarpmex.cpp -I/Users/kelvindk/Documents/Github/Video-Stabilization/boost_1_42_0 -I/opt/X11/include/ -L/opt/X11/lib/ -lgl -lglut -lglu
 
 #include "mex.h"
 #define GL_GLEXT_PROTOTYPES
@@ -132,7 +132,7 @@ std::vector<vec3> WarpMesh(vec3* theta, int num_rows)
         mat33 R = rotz_matrix<3>(-*theta|Z) *
                   roty_matrix<3>(*theta|X) *
                   rotx_matrix<3>(*theta|Y);
-        mexPrintf("WarpMesh -- r %f %f %f\n", *theta|X, *theta|Y, *theta|Z);
+//         mexPrintf("WarpMesh -- r %f %f %f\n", *theta|X, *theta|Y, *theta|Z);
         for (int c=0; c < num_cols; ++c)
         {
 //             mexPrintf("WarpMesh c %d\n", c);
@@ -235,18 +235,18 @@ void RenderScene(int width, int height, double focal_len, vec3& camtheta, std::v
 //     glRotated((camtheta|X)*180/M_PI, 0,1,0);
 //     glRotated((camtheta|Z)*180/M_PI, 0,0,-1);
     
-    mexPrintf("X %f Y %f Z %f\n", (camtheta|Y)*180/M_PI, (camtheta|X)*180/M_PI, (camtheta|Z)*180/M_PI);
-    for(int i=0; i<warped.size(); i++) {
-        mexPrintf("warped i %d %f %f %f\n", i, warped.size(), warped.at(i)|A0, warped.at(i)|A1, warped.at(i)|A2);
-    }
-    
-    for(int i=0; i<mesh_uv.size(); i++) {
-        mexPrintf("mesh_uv i %d %f %f\n", i, mesh_uv.size(), mesh_uv.at(i)|A0, mesh_uv.at(i)|A1);
-    }
-    
-    for(int i=0; i<mesh_strip.size(); i++) {
-        mexPrintf("mesh_strip i %d %d\n", i, mesh_strip.size(), mesh_strip.at(i));
-    }
+//     mexPrintf("X %f Y %f Z %f\n", (camtheta|Y)*180/M_PI, (camtheta|X)*180/M_PI, (camtheta|Z)*180/M_PI);
+//     for(int i=0; i<warped.size(); i++) {
+//         mexPrintf("warped i %d %f %f %f\n", i, warped.size(), warped.at(i)|A0, warped.at(i)|A1, warped.at(i)|A2);
+//     }
+//     
+//     for(int i=0; i<mesh_uv.size(); i++) {
+//         mexPrintf("mesh_uv i %d %f %f\n", i, mesh_uv.size(), mesh_uv.at(i)|A0, mesh_uv.at(i)|A1);
+//     }
+//     
+//     for(int i=0; i<mesh_strip.size(); i++) {
+//         mexPrintf("mesh_strip i %d %d\n", i, mesh_strip.size(), mesh_strip.at(i));
+//     }
 	
 	glDisableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -449,7 +449,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     int height = mxGetDimensions(IMAGE)[2];
     int num_rows = mxGetN(ROWTHETA);
 //     int num_rows = 20;
-    mexPrintf("num_rows %d\n", num_rows);
+//     mexPrintf("num_rows %d\n", num_rows);
     
     if (!glutWin)
     {
@@ -464,9 +464,9 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     std::vector<vec3> warped = WarpMesh(rowtheta, num_rows);
     
 //     for(int i=0; i< 20; i++) {
-        mexPrintf("warped %f %d\n", &warped[0], warped.size());
+//         mexPrintf("warped %f %d\n", &warped[0], warped.size());
 //     }    
-    mexPrintf("\n");
+//     mexPrintf("\n");
     
     CreateTexture(width, height, (uint8_t*)mxGetData(IMAGE));
     ConfigureCamera(width, height, focal_len);

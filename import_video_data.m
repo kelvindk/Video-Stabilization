@@ -21,7 +21,7 @@ fid = fopen([file '.txt']);
 gyro = read_mat_from_file(fid);
 gyro(:,4) = gyro(:,4)/1000000000;
 % gyro(:,1:3) = 0;
-% gyro(:,1:3) = gyro(:,1:3)/10;
+% gyro(:,1:3) = gyro(:,1:3)*0.85;
 frame_time = read_mat_from_file(fid);
 frame_time(:,1) = frame_time(:,1)/1000000000;
 fclose(fid);

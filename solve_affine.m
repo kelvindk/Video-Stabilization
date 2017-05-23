@@ -100,7 +100,7 @@ for iter = 1:5000
     
     err = err / denom;
     
-%     c = c - alpha_c*dE_dc;
+    c = c - alpha_c*dE_dc;
     t0 = t0 + alpha_t0*dE_dt0;
     ts = ts + alpha_ts*dE_dts;
     

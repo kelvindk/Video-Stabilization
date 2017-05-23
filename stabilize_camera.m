@@ -15,7 +15,7 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 clear all;
 
-video_file = '9';
+video_file = '4';
 
 [gyro frame_time] = import_video_data(video_file);
 run ./vlfeat-0.9.20/toolbox/vl_setup.m
@@ -24,28 +24,23 @@ warning('off', 'Images:initSize:adjustingMag');
 
 %% meshwarp
 clear meshwarpmex
-% load(['mat/camera_param_shake2.mat'], 'cp');
-% fl = cp(1);
-% td = cp(2);
-% ts = cp(3);
 
-% 4
-% fl = 364.918349;
-% td = 0.001181;
-% ts = -0.002740;f
+% parameters
+fl = 1930.143895;
+td = 85734643;
+ts = -2103532;
 
-fl = 715.032453;
-td = -0.009055;
-ts = 0.004764;
+td = td/1000000000;
+ts = ts/1000000000;
 
 g = gyro(:,1:3);
 
 sigma2 = 4000;
 gauss = exp(-(-120:120).^2 / sigma2);
 gauss = gauss ./ sum(gauss);
-% g(:,1) = g(:,1) - conv(gyro(:,1), gauss, 'same');
-% g(:,2) = g(:,2) - conv(gyro(:,2), gauss, 'same');
-% g(:,3) = g(:,3) - conv(gyro(:,3), gauss, 'same');
+g(:,1) = g(:,1) - conv(gyro(:,1), gauss, 'same');
+g(:,2) = g(:,2) - conv(gyro(:,2), gauss, 'same');
+g(:,3) = g(:,3) - conv(gyro(:,3), gauss, 'same');
 dgt = diff(gyro(:,4)); % interval between each gyro sample
 theta1 = ((g(1:end-1,:) + g(2:end,:)) / 2) .* dgt(:,[1 1 1]);
 theta1 = [0 0 0; cumsum(theta1, 1)];
